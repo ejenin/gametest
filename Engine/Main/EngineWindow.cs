@@ -35,6 +35,8 @@ namespace Engine.Main
             (sender as GameWindow).SwapBuffers();
         }
 
+        public Renderer Renderer => _renderer;
+
         public void RunEngine()
         {
             Run(Constants.UPDATES_PER_SECOND, Constants.FRAMES_PER_SECOND);

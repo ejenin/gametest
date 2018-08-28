@@ -48,8 +48,8 @@
     <Compile Include="Events\EventArgs\RenderFrameEventArgs.cs" />
     <Compile Include="Events\EventArgs\UpdateFrameEventArgs.cs" />
     <Compile Include="Events\Events.cs" />
-    <Compile Include="Graphics\Renderable\BasicRenderableObject.cs" />
-    <Compile Include="Graphics\Renderable\IRenderableObject.cs" />
+    <Compile Include="Graphics\Renderable\BasicRenderableQueue.cs" />
+    <Compile Include="Graphics\Renderable\IRenderableQueue.cs" />
     <Compile Include="Graphics\Renderer.cs" />
     <Compile Include="Graphics\Shader.cs" />
     <Compile Include="Graphics\VertexArray.cs" />

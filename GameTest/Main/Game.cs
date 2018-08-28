@@ -1,5 +1,5 @@
-﻿using Engine.Main;
-using Engine.Events.EventArgs;
+﻿using Engine.Events.EventArgs;
+using Engine.Main;
 using GameTest.States;
 
 namespace GameTest.Main
@@ -12,7 +12,7 @@ namespace GameTest.Main
         public Game()
         {
             _engine = new EngineWindow();
-            _stateHandler = new StateHandler();
+            _stateHandler = new StateHandler(_engine.Renderer);
 
             _engine.OnFrameRender += OnFrameRender;
             _engine.OnFrameUpdate += OnFrameUpdate;

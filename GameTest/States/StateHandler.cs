@@ -1,10 +1,5 @@
 ﻿using Engine.Graphics;
 using GameTest.States.Test;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameTest.States
 {
@@ -12,9 +7,9 @@ namespace GameTest.States
     {
         private StateBase _currentState;
 
-        public StateHandler()
+        public StateHandler(Renderer renderer)
         {
-            _currentState = new TestState(this);
+            _currentState = new TestState(this, renderer);
         }
 
         public void Draw(Renderer renderer)
