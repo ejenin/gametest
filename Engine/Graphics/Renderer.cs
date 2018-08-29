@@ -1,4 +1,5 @@
 ﻿using Engine.Graphics.Renderable;
+using Engine.Graphics.Renderable.Queues;
 using Engine.Shared;
 using OpenTK.Graphics;
 using OpenTK.Graphics.ES20;
@@ -17,11 +18,11 @@ namespace Engine.Graphics
             _queues = new List<IRenderableQueue>();
 
             _queues.Add(new BasicRenderableQueue());
+            GL.ClearColor(Color4.Black);
         }
         
         internal void BeforeDraw()
         {
-            GL.ClearColor(Color4.Black);
             foreach (var queue in _queues)
             {
                 queue.Prepare();
@@ -39,17 +40,26 @@ namespace Engine.Graphics
 
         internal void AfterDraw()
         {
-            ShadersLibrary.BASIC.Disable();
             foreach (var queue in _queues)
             {
                 queue.Clear();
             }
         }
 
-        public IRenderableQueue GetRenderableQueue<T>()
+        public void AppendRenderable(IRenderable renderable)
+        {
+            var queue = _queues.Where(q => q.CanRender(renderable)).FirstOrDefault();
+            if (queue != null)
+            {
+                queue.AppendData(renderable);
+            }
+        }
+
+        public void AppendRenderableTo<T>(IRenderable renderable)
+            where T : IRenderableQueue
         {
             var queue = _queues.Where(q => q is T).FirstOrDefault();
-            return queue;
+            queue.AppendData(renderable);
         }
     }
 }

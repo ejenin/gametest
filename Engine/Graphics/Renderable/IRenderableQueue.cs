@@ -1,11 +1,9 @@
-﻿using OpenTK;
-
-namespace Engine.Graphics.Renderable
+﻿namespace Engine.Graphics.Renderable
 {
     public interface IRenderableQueue
     {
-        //todo: абстрагировать от Vector3
-        void AppendData(Vector3[] data);
+        bool CanRender(IRenderable renderable);
+        void AppendData(IRenderable renderable);
         void Prepare();
         void Draw();
         void Clear();

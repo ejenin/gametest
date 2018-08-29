@@ -1,54 +1,57 @@
 ﻿using Engine.Graphics;
-using Engine.Graphics.Renderable;
+using Engine.Graphics.Renderable.Objects;
 using OpenTK;
+using System;
+using System.Collections.Generic;
 
 namespace GameTest.States.Test
 {
     public class TestState : StateBase
     {
-        private IRenderableQueue _basicRenderableQueue;
+        private ICollection<BasicRenderable> objects;
 
-        private Vector3[] testMesh;
-        private Vector3[] testMeshColor;
-
-        public TestState (StateHandler stateHandler, Renderer renderer) : base(stateHandler)
+        public TestState (StateHandler stateHandler) : base(stateHandler)
         {
-            _basicRenderableQueue = renderer.GetRenderableQueue<BasicRenderableQueue>();
+            Random rnd = new Random();
+            objects = new List<BasicRenderable>();
+            for (int i = 0; i < 2; i++)
+            {
+                //-8.0f  - 8.0d
+                //-4.5f  - 4.5f
+                float x = rnd.Next(-8000, 8000) / 1000.0f;
+                float y = rnd.Next(-4500, 4500) / 1000.0f;
 
-            testMesh = new Vector3[8];
+                float r = (float)rnd.NextDouble();
+                float g = (float)rnd.NextDouble();
+                float b = (float)rnd.NextDouble();
 
-            testMesh[0] = new Vector3(-1.0f, 1.0f, 0.0f);
-            testMesh[1] = new Vector3(1.0f, 1.0f, 0.0f);
-            testMesh[2] = new Vector3(1.0f, -1.0f, 0.0f);
-            testMesh[3] = new Vector3(-1.0f, -1.0f, 0.0f);
+                var testMesh = new Vector3[4];
 
-            testMesh[4] = new Vector3(-3.0f, -2.0f, 0.0f);
-            testMesh[5] = new Vector3(-2.0f, -2.0f, 0.0f);
-            testMesh[6] = new Vector3(-2.0f, -3.0f, 0.0f);
-            testMesh[7] = new Vector3(-3.0f, -3.0f, 0.0f);
+                testMesh[0] = new Vector3(x + -1.0f, y + 1.0f, 0.0f);
+                testMesh[1] = new Vector3(x + 1.0f, y + 1.0f, 0.0f);
+                testMesh[2] = new Vector3(x + 1.0f, y + -1.0f, 0.0f);
+                testMesh[3] = new Vector3(x + -1.0f, y + -1.0f, 0.0f);
 
-            testMeshColor = new Vector3[8];
+                var testMeshColor = new Vector3[4];
 
-            testMeshColor[0] = new Vector3(1.0f, 1.0f, 1.0f);
-            testMeshColor[1] = new Vector3(1.0f, 1.0f, 1.0f);
-            testMeshColor[2] = new Vector3(1.0f, 1.0f, 1.0f);
-            testMeshColor[3] = new Vector3(1.0f, 1.0f, 1.0f);
-
-            testMeshColor[4] = new Vector3(1.0f, 0.5f, 0.3f);
-            testMeshColor[5] = new Vector3(1.0f, 0.5f, 0.3f);
-            testMeshColor[6] = new Vector3(1.0f, 0.5f, 0.3f);
-            testMeshColor[7] = new Vector3(1.0f, 0.5f, 0.3f);
+                testMeshColor[0] = new Vector3(r, g, b);
+                testMeshColor[1] = new Vector3(r, g, b);
+                testMeshColor[2] = new Vector3(r, g, b);
+                testMeshColor[3] = new Vector3(r, g, b);
+                objects.Add(new BasicRenderable(testMesh, testMeshColor));
+            }
         }
 
         public override void Draw(Renderer renderer)
         {
-            _basicRenderableQueue.AppendData(testMesh);
-            _basicRenderableQueue.AppendData(testMeshColor);
+            foreach (var item in objects)
+            {
+                renderer.AppendRenderable(item);
+            }
         }
 
         public override void Update()
         {
-            //Console.WriteLine("update");
         }
     }
 }

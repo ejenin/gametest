@@ -7,9 +7,9 @@ namespace GameTest.States
     {
         private StateBase _currentState;
 
-        public StateHandler(Renderer renderer)
+        public StateHandler()
         {
-            _currentState = new TestState(this, renderer);
+            _currentState = new TestState(this);
         }
 
         public void Draw(Renderer renderer)

@@ -15,10 +15,10 @@ namespace Engine.Graphics
             _vbos = new List<int>();
         }
 
-        public void AppendBuffer(Vector3[] data)
+        public void AppendBuffer(Vector3[] data, int index)
         {
             Bind();
-            int bufferId = _vbos.Count;
+            int bufferId = index;
             int vbo = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
             GL.BufferData<Vector3>(BufferTarget.ArrayBuffer, (IntPtr)(Vector3.SizeInBytes * data.Length), data, BufferUsageHint.StaticDraw);

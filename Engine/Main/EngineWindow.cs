@@ -3,6 +3,9 @@ using Engine.Graphics;
 using Engine.Shared;
 using OpenTK;
 using OpenTK.Graphics;
+using OpenTK.Graphics.OpenGL;
+using System;
+using System.Drawing;
 
 namespace Engine.Main
 {
@@ -19,6 +22,12 @@ namespace Engine.Main
 
             RenderFrame += EngineWindow_RenderFrame;
             UpdateFrame += EngineWindow_UpdateFrame;
+            Resize += EngineWindow_Resize;
+        }
+
+        private void EngineWindow_Resize(object sender, EventArgs e)
+        {
+            GL.Viewport(new Rectangle(0, 0, (sender as GameWindow).Width, (sender as GameWindow).Height));
         }
 
         private void EngineWindow_UpdateFrame(object sender, FrameEventArgs e)
@@ -26,10 +35,23 @@ namespace Engine.Main
             OnFrameUpdate?.Invoke(this, new Events.EventArgs.UpdateFrameEventArgs());
         }
 
+        private double _timer = 0.0d;
+        private int _fps = 0;
+
         private void EngineWindow_RenderFrame(object sender, FrameEventArgs e)
         {
-            _renderer.BeforeDraw();
+            _timer += e.Time;
+            _fps++;
+
+            if (_timer > 1.0d)
+            {
+                Console.WriteLine(_fps);
+                _fps = 0;
+                _timer = 0.0d;
+            }
+
             OnFrameRender?.Invoke(this, new Events.EventArgs.RenderFrameEventArgs(_renderer));
+            _renderer.BeforeDraw();
             _renderer.DrawFrame();
             _renderer.AfterDraw();
             (sender as GameWindow).SwapBuffers();
@@ -39,6 +61,9 @@ namespace Engine.Main
 
         public void RunEngine()
         {
+            //VSync = VSyncMode.Off;
+            //WindowState = WindowState.Fullscreen;
+            //Run();
             Run(Constants.UPDATES_PER_SECOND, Constants.FRAMES_PER_SECOND);
         }
 

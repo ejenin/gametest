@@ -8,6 +8,8 @@
         public static double FRAMES_PER_SECOND = 60.0d;
         public static double UPDATES_PER_SECOND = 60.0d;
 
+        public static int VERTICES_PER_OBJECT = 4;
+
         #region Shaders
         public static string BASIC_VERT_SHADER = @"#version 330 core
 layout(location = 0) in vec3 coordinate;
