@@ -8,6 +8,9 @@
         public static double FRAMES_PER_SECOND = 60.0d;
         public static double UPDATES_PER_SECOND = 60.0d;
 
+        /// <summary>
+        /// СЧЁТ ВЕРШИН НАЧИНАЕТСЯ С ВЕРХНЕЙ ЛЕВОЙ ПО ЧАСОВОЙ СТРЕЛКЕ
+        /// </summary>
         public static int VERTICES_PER_OBJECT = 4;
 
         #region Shaders

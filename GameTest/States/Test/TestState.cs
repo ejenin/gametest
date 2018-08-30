@@ -3,6 +3,7 @@ using Engine.Graphics.Renderable.Objects;
 using OpenTK;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace GameTest.States.Test
 {
@@ -40,6 +41,8 @@ namespace GameTest.States.Test
                 testMeshColor[3] = new Vector3(r, g, b);
                 objects.Add(new BasicRenderable(testMesh, testMeshColor));
             }
+
+            objects.Add(new BasicRenderable(0.5f, 0.5f, 1.0f, 0.0f, Color.AliceBlue));
         }
 
         public override void Draw(Renderer renderer)
