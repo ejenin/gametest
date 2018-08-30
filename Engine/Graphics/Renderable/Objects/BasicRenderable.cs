@@ -1,4 +1,5 @@
 ﻿using OpenTK;
+using System;
 using System.Drawing;
 
 namespace Engine.Graphics.Renderable.Objects
@@ -86,6 +87,7 @@ namespace Engine.Graphics.Renderable.Objects
             MeshData[3] = new Vector3(x - width * 0.5f, y - height * 0.5f, 0.0f);
         }
 
+        [Obsolete("Can't work stable due to unknown Width and Height")]
         public BasicRenderable(Vector3[] meshData, Vector3[] colorData)
         {
             MeshData = meshData;

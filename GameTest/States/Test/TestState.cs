@@ -27,20 +27,7 @@ namespace GameTest.States.Test
                 float g = (float)rnd.NextDouble();
                 float b = (float)rnd.NextDouble();
 
-                var testMesh = new Vector3[4];
-
-                testMesh[0] = new Vector3(x + -1.0f, y + 1.0f, 0.0f);
-                testMesh[1] = new Vector3(x + 1.0f, y + 1.0f, 0.0f);
-                testMesh[2] = new Vector3(x + 1.0f, y + -1.0f, 0.0f);
-                testMesh[3] = new Vector3(x + -1.0f, y + -1.0f, 0.0f);
-
-                var testMeshColor = new Vector3[4];
-
-                testMeshColor[0] = new Vector3(r, g, b);
-                testMeshColor[1] = new Vector3(r, g, b);
-                testMeshColor[2] = new Vector3(r, g, b);
-                testMeshColor[3] = new Vector3(r, g, b);
-                objects.Add(new BasicRenderable(testMesh, testMeshColor));
+                objects.Add(new BasicRenderable(1.0f, 1.0f, x, y, Color.FromArgb((int)(r * 255.0f), (int)(g * 255.0f), (int)(b * 255.0f))));
             }
 
             objects.Add(new BasicRenderable(0.5f, 0.5f, 1.0f, 0.0f, Color.AliceBlue));
@@ -57,18 +44,19 @@ namespace GameTest.States.Test
 
         public override void Update()
         {
-            var lastObject = objects.Last();
-
-            var x = lastObject.X + 0.1f;
-
-            if (x > 8.0f)
+            foreach (var item in objects)
             {
-                x = -8.0f;
+                var x = item.X + 0.1f;
+
+                if (x > 8.0f)
+                {
+                    x = -8.0f;
+                }
+
+                var y = (float)Math.Sin(x);
+
+                item.MoveTo(x, y);
             }
-
-            var y = (float)Math.Sin(x);
-
-            lastObject.MoveTo(x, y);
         }
     }
 }
