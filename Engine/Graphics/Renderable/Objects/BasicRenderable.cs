@@ -12,15 +12,32 @@ namespace Engine.Graphics.Renderable.Objects
         public Vector3[] MeshData { get; set; }
         public Vector3[] ColorData { get; set; }
 
+        public float X { get; private set; } = 0.0f;
+        public float Y { get; private set; } = 0.0f;
+        public float Width { get; private set; } = 0.0f;
+        public float Height { get; private set; } = 0.0f;
+
+        public BasicRenderable(float width, float height)
+        {
+            CreateMesh(width, height);
+            CreateColor(DEFAULT_COLOR);
+        }
+
+        public BasicRenderable(float width, float height, Color color)
+        {
+            CreateMesh(width, height);
+            CreateColor(color);
+        }
+
         public BasicRenderable(float width, float height, float x, float y)
         {
-            CreateGeometry(width, height, x, y);
+            CreateMesh(width, height, x, y);
             CreateColor(DEFAULT_COLOR);
         }
 
         public BasicRenderable(float width, float height, float x, float y, Color color)
         {
-            CreateGeometry(width, height, x, y);
+            CreateMesh(width, height, x, y);
             CreateColor(color);
         }
 
@@ -36,10 +53,33 @@ namespace Engine.Graphics.Renderable.Objects
             ColorData[3] = colorVec;
         }
 
-        private void CreateGeometry(float width, float height, float x, float y)
+        public void MoveTo(float x, float y)
+        {
+            UpdateMesh(x, y);
+
+            X = x;
+            Y = y;
+        }
+
+        private void CreateMesh(float width, float height, float x = 0.0f, float y = 0.0f)
         {
             MeshData = new Vector3[4];
 
+            UpdateMesh(x, y, width, height);
+
+            X = x;
+            Y = y;
+            Height = height;
+            Width = width;
+        }
+
+        private void UpdateMesh(float x, float y)
+        {
+            UpdateMesh(x, y, Width, Height);
+        }
+
+        private void UpdateMesh(float x, float y, float width, float height)
+        {
             MeshData[0] = new Vector3(x - width * 0.5f, y + height * 0.5f, 0.0f);
             MeshData[1] = new Vector3(x + width * 0.5f, y + height * 0.5f, 0.0f);
             MeshData[2] = new Vector3(x + width * 0.5f, y - height * 0.5f, 0.0f);

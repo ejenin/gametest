@@ -66,7 +66,7 @@ namespace Engine.Main
         {
             //VSync = VSyncMode.Off;
             //WindowState = WindowState.Fullscreen;
-            //Run();
+            //Run(Constants.UPDATES_PER_SECOND);
             Console.WriteLine(GL.GetString(StringName.Version));
             Console.WriteLine(GL.GetString(StringName.Vendor));
             Console.WriteLine("SHADER: " + GL.GetString(StringName.ShadingLanguageVersion));

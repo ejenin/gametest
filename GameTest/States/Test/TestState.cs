@@ -4,6 +4,7 @@ using OpenTK;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 namespace GameTest.States.Test
 {
@@ -43,6 +44,7 @@ namespace GameTest.States.Test
             }
 
             objects.Add(new BasicRenderable(0.5f, 0.5f, 1.0f, 0.0f, Color.AliceBlue));
+            objects.Add(new BasicRenderable(0.25f, 0.25f, -8.0f, 0.0f, Color.LimeGreen));
         }
 
         public override void Draw(Renderer renderer)
@@ -55,6 +57,18 @@ namespace GameTest.States.Test
 
         public override void Update()
         {
+            var lastObject = objects.Last();
+
+            var x = lastObject.X + 0.1f;
+
+            if (x > 8.0f)
+            {
+                x = -8.0f;
+            }
+
+            var y = (float)Math.Sin(x);
+
+            lastObject.MoveTo(x, y);
         }
     }
 }
