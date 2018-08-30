@@ -40,14 +40,17 @@ namespace Engine.Main
 
         private void EngineWindow_RenderFrame(object sender, FrameEventArgs e)
         {
-            _timer += e.Time;
-            _fps++;
-
-            if (_timer > 1.0d)
+            if (Constants.CALC_FPS)
             {
-                Console.WriteLine(_fps);
-                _fps = 0;
-                _timer = 0.0d;
+                _timer += e.Time;
+                _fps++;
+
+                if (_timer > 1.0d)
+                {
+                    Console.WriteLine(_fps);
+                    _fps = 0;
+                    _timer = 0.0d;
+                }
             }
 
             OnFrameRender?.Invoke(this, new Events.EventArgs.RenderFrameEventArgs(_renderer));
@@ -64,6 +67,10 @@ namespace Engine.Main
             //VSync = VSyncMode.Off;
             //WindowState = WindowState.Fullscreen;
             //Run();
+            Console.WriteLine(GL.GetString(StringName.Version));
+            Console.WriteLine(GL.GetString(StringName.Vendor));
+            Console.WriteLine("SHADER: " + GL.GetString(StringName.ShadingLanguageVersion));
+            Console.WriteLine(GL.GetString(StringName.Renderer));
             Run(Constants.UPDATES_PER_SECOND, Constants.FRAMES_PER_SECOND);
         }
 

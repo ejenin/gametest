@@ -20,10 +20,21 @@ namespace Engine.Graphics
             int vert = GL.CreateShader(ShaderType.VertexShader);
             GL.ShaderSource(frag, fragShader);
             GL.ShaderSource(vert, vertShader);
+
             GL.CompileShader(frag);
-            Console.WriteLine(GL.GetShaderInfoLog(frag));
+            var log = GL.GetShaderInfoLog(frag);
+            if (!string.IsNullOrEmpty(log))
+            {
+                Console.WriteLine(log);
+            }
+
             GL.CompileShader(vert);
-            Console.WriteLine(GL.GetShaderInfoLog(vert));
+            log = GL.GetShaderInfoLog(vert);
+            if (!string.IsNullOrEmpty(log))
+            {
+                Console.WriteLine(log);
+            }
+
             GL.AttachShader(_id, frag);
             GL.AttachShader(_id, vert);
             GL.LinkProgram(_id);
