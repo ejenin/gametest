@@ -56,6 +56,7 @@
     <Compile Include="Graphics\Renderer.cs" />
     <Compile Include="Graphics\Shader.cs" />
     <Compile Include="Graphics\VertexArray.cs" />
+    <Compile Include="Input\KeyboardInput.cs" />
     <Compile Include="Main\EngineWindow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shared\ShadersLibrary.cs" />
@@ -65,8 +66,6 @@
     <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Input\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

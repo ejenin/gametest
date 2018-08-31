@@ -1,16 +1,15 @@
 ﻿using Engine.Graphics;
 using Engine.Graphics.Renderable.Objects;
-using OpenTK;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 
 namespace GameTest.States.Test
 {
     public class TestState : StateBase
     {
         private ICollection<BasicRenderable> objects;
+        private BasicRenderable ControllableObject;
 
         public TestState (StateHandler stateHandler) : base(stateHandler)
         {
@@ -32,6 +31,8 @@ namespace GameTest.States.Test
 
             objects.Add(new BasicRenderable(0.5f, 0.5f, 1.0f, 0.0f, Color.AliceBlue));
             objects.Add(new BasicRenderable(0.25f, 0.25f, -8.0f, 0.0f, Color.LimeGreen));
+
+            ControllableObject = new BasicRenderable(2.0f, 2.0f, Color.BlanchedAlmond);
         }
 
         public override void Draw(Renderer renderer)
@@ -40,22 +41,50 @@ namespace GameTest.States.Test
             {
                 renderer.AppendRenderable(item);
             }
+            renderer.AppendRenderable(ControllableObject);
         }
+
+        bool moving = false;
 
         public override void Update()
         {
-            foreach (var item in objects)
+            if (KeyboardInput.IsKeyDown(OpenTK.Input.Key.Up))
             {
-                var x = item.X + 0.1f;
+                ControllableObject.MoveTo(ControllableObject.X, ControllableObject.Y + 0.05f);
+            }
+            if (KeyboardInput.IsKeyDown(OpenTK.Input.Key.Down))
+            {
+                ControllableObject.MoveTo(ControllableObject.X, ControllableObject.Y - 0.05f);
+            }
+            if (KeyboardInput.IsKeyDown(OpenTK.Input.Key.Left))
+            {
+                ControllableObject.MoveTo(ControllableObject.X - 0.05f, ControllableObject.Y);
+            }
+            if (KeyboardInput.IsKeyDown(OpenTK.Input.Key.Right))
+            {
+                ControllableObject.MoveTo(ControllableObject.X + 0.05f, ControllableObject.Y);
+            }
 
-                if (x > 8.0f)
+            if (KeyboardInput.IsKeyPressed(OpenTK.Input.Key.Space))
+            {
+                moving = !moving;
+            }
+
+            if (moving)
+            {
+                foreach (var item in objects)
                 {
-                    x = -8.0f;
+                    var x = item.X + 0.1f;
+
+                    if (x > 8.0f)
+                    {
+                        x = -8.0f;
+                    }
+
+                    var y = (float)Math.Sin(x);
+
+                    item.MoveTo(x, y);
                 }
-
-                var y = (float)Math.Sin(x);
-
-                item.MoveTo(x, y);
             }
         }
     }

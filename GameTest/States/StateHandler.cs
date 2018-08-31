@@ -1,4 +1,5 @@
 ﻿using Engine.Graphics;
+using Engine.Input;
 using GameTest.States.Test;
 
 namespace GameTest.States
@@ -6,9 +7,12 @@ namespace GameTest.States
     public class StateHandler
     {
         private StateBase _currentState;
+        public KeyboardInput KeyboardInput { get; set; }
 
-        public StateHandler()
+        public StateHandler(KeyboardInput keyboardInput)
         {
+            KeyboardInput = keyboardInput;
+
             _currentState = new TestState(this);
         }
 

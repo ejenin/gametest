@@ -1,5 +1,6 @@
 ﻿using Engine.Events;
 using Engine.Graphics;
+using Engine.Input;
 using Engine.Shared;
 using OpenTK;
 using OpenTK.Graphics;
@@ -12,6 +13,8 @@ namespace Engine.Main
     public class EngineWindow : GameWindow
     {
         private Renderer _renderer;
+        public KeyboardInput KeyboardInput { get; set; }
+        //TODO: абстрагировать?
         public event FrameRender OnFrameRender;
         public event FrameUpdate OnFrameUpdate;
 
@@ -19,10 +22,29 @@ namespace Engine.Main
             : base(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, GraphicsMode.Default, Constants.WINDOW_TITLE)
         {
             InitializeRenderer();
+            InitializeInput();
 
             RenderFrame += EngineWindow_RenderFrame;
             UpdateFrame += EngineWindow_UpdateFrame;
             Resize += EngineWindow_Resize;
+
+            KeyDown += EngineWindow_KeyDown;
+            KeyUp += EngineWindow_KeyUp;
+        }
+
+        private void EngineWindow_KeyUp(object sender, OpenTK.Input.KeyboardKeyEventArgs e)
+        {
+            KeyboardInput.ReleaseKey(e.Key);
+        }
+
+        private void EngineWindow_KeyDown(object sender, OpenTK.Input.KeyboardKeyEventArgs e)
+        {
+            KeyboardInput.PressKey(e.Key);
+        }
+
+        public void InitializeInput()
+        {
+            KeyboardInput = new KeyboardInput();
         }
 
         private void EngineWindow_Resize(object sender, EventArgs e)
@@ -32,7 +54,8 @@ namespace Engine.Main
 
         private void EngineWindow_UpdateFrame(object sender, FrameEventArgs e)
         {
-            OnFrameUpdate?.Invoke(this, new Events.EventArgs.UpdateFrameEventArgs());
+            OnFrameUpdate?.Invoke(this, new Events.EventArgs.UpdateFrameEventArgs(e.Time));
+            KeyboardInput.Update();
         }
 
         private double _timer = 0.0d;

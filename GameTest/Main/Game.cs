@@ -12,7 +12,7 @@ namespace GameTest.Main
         public Game()
         {
             _engine = new EngineWindow();
-            _stateHandler = new StateHandler();
+            _stateHandler = new StateHandler(_engine.KeyboardInput);
 
             _engine.OnFrameRender += OnFrameRender;
             _engine.OnFrameUpdate += OnFrameUpdate;
