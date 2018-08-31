@@ -1,5 +1,6 @@
 ﻿using Engine.Graphics;
 using Engine.Graphics.Renderable.Objects;
+using OpenTK.Input;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -48,24 +49,24 @@ namespace GameTest.States.Test
 
         public override void Update()
         {
-            if (KeyboardInput.IsKeyDown(OpenTK.Input.Key.Up))
+            if (KeyboardInput.IsKeyDown(Key.Up))
             {
                 ControllableObject.MoveTo(ControllableObject.X, ControllableObject.Y + 0.05f);
             }
-            if (KeyboardInput.IsKeyDown(OpenTK.Input.Key.Down))
+            if (KeyboardInput.IsKeyDown(Key.Down))
             {
                 ControllableObject.MoveTo(ControllableObject.X, ControllableObject.Y - 0.05f);
             }
-            if (KeyboardInput.IsKeyDown(OpenTK.Input.Key.Left))
+            if (KeyboardInput.IsKeyDown(Key.Left))
             {
                 ControllableObject.MoveTo(ControllableObject.X - 0.05f, ControllableObject.Y);
             }
-            if (KeyboardInput.IsKeyDown(OpenTK.Input.Key.Right))
+            if (KeyboardInput.IsKeyDown(Key.Right))
             {
                 ControllableObject.MoveTo(ControllableObject.X + 0.05f, ControllableObject.Y);
             }
 
-            if (KeyboardInput.IsKeyPressed(OpenTK.Input.Key.Space))
+            if (KeyboardInput.IsKeyPressed(Key.Space))
             {
                 moving = !moving;
             }
