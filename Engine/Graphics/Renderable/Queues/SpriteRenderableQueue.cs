@@ -54,7 +54,7 @@ namespace Engine.Graphics.Renderable.Queues
             {
                 Renderables[i].Texture.Bind();
                 _vas[i].Bind();
-                GL.DrawArrays(PrimitiveType.Quads, 0, Constants.VERTICES_PER_OBJECT * 4);
+                GL.DrawArrays(PrimitiveType.Quads, 0, Constants.VERTICES_PER_OBJECT);
                 _vas[i].Unbind();
             }
             _shader.Disable();
@@ -62,12 +62,12 @@ namespace Engine.Graphics.Renderable.Queues
 
         public void Prepare()
         {
-            foreach (var item in _vas)
+            for (int i = 0; i < Renderables.Count; i++)
             {
-                var sprite = Renderables[_vas.IndexOf(item)];
-
-                item.AppendBuffer(sprite.MeshData, 0);
-                item.AppendBuffer(sprite.TextureData, 1);
+                var sprite = Renderables[i];
+                _vas[i].InitData();
+                _vas[i].AppendBuffer(sprite.MeshData, 0);
+                _vas[i].AppendBuffer(sprite.TextureData, 1);
             }
         }
     }

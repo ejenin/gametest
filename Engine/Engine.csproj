@@ -51,7 +51,6 @@
     <Compile Include="Graphics\Renderable\Objects\BasicRenderable.cs" />
     <Compile Include="Graphics\Renderable\Objects\ISpriteRenderable.cs" />
     <Compile Include="Graphics\Renderable\Objects\SpriteRenderable.cs" />
-    <Compile Include="Graphics\Renderable\Objects\SpriteRenderableDto.cs" />
     <Compile Include="Graphics\Renderable\Queues\BasicRenderableQueue.cs" />
     <Compile Include="Graphics\Renderable\Objects\IBasicRenderable.cs" />
     <Compile Include="Graphics\Renderable\IRenderable.cs" />
