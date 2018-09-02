@@ -18,6 +18,7 @@ namespace Engine.Graphics
             _queues = new List<IRenderableQueue>();
 
             _queues.Add(new BasicRenderableQueue());
+            _queues.Add(new SpriteRenderableQueue());
             GL.ClearColor(Color4.Black);
         }
         

@@ -11,6 +11,7 @@ namespace GameTest.States.Test
     {
         private ICollection<BasicRenderable> objects;
         private BasicRenderable ControllableObject;
+        private SpriteRenderable SpriteRenderable;
 
         public TestState (StateHandler stateHandler) : base(stateHandler)
         {
@@ -34,6 +35,7 @@ namespace GameTest.States.Test
             objects.Add(new BasicRenderable(0.25f, 0.25f, -8.0f, 0.0f, Color.LimeGreen));
 
             ControllableObject = new BasicRenderable(2.0f, 2.0f, Color.BlanchedAlmond);
+            SpriteRenderable = new SpriteRenderable(1.3f, 2.0f, 0.0f, 0.0f, (Bitmap)Bitmap.FromFile("Textures//tex.png"));
         }
 
         public override void Draw(Renderer renderer)
@@ -43,6 +45,7 @@ namespace GameTest.States.Test
                 renderer.AppendRenderable(item);
             }
             renderer.AppendRenderable(ControllableObject);
+            renderer.AppendRenderable(SpriteRenderable);
         }
 
         bool moving = false;

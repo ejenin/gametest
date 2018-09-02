@@ -1,4 +1,5 @@
-﻿using OpenTK;
+﻿using Engine.Helpers;
+using OpenTK;
 using System;
 using System.Drawing;
 
@@ -81,10 +82,7 @@ namespace Engine.Graphics.Renderable.Objects
 
         private void UpdateMesh(float x, float y, float width, float height)
         {
-            MeshData[0] = new Vector3(x - width * 0.5f, y + height * 0.5f, 0.0f);
-            MeshData[1] = new Vector3(x + width * 0.5f, y + height * 0.5f, 0.0f);
-            MeshData[2] = new Vector3(x + width * 0.5f, y - height * 0.5f, 0.0f);
-            MeshData[3] = new Vector3(x - width * 0.5f, y - height * 0.5f, 0.0f);
+            MeshMathHelper.CalculateMeshData(MeshData, width, height, x, y);
         }
 
         [Obsolete("Can't work stable due to unknown Width and Height")]

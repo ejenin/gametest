@@ -92,7 +92,7 @@ namespace Engine.Main
             //Run(Constants.UPDATES_PER_SECOND);
             Console.WriteLine(GL.GetString(StringName.Version));
             Console.WriteLine(GL.GetString(StringName.Vendor));
-            Console.WriteLine("SHADER: " + GL.GetString(StringName.ShadingLanguageVersion));
+            Console.WriteLine("SHADER: " + GL.GetString(StringName.ShadingLanguageVersion));    
             Console.WriteLine(GL.GetString(StringName.Renderer));
             Run(Constants.UPDATES_PER_SECOND, Constants.FRAMES_PER_SECOND);
         }

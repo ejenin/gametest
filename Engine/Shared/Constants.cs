@@ -15,6 +15,36 @@
         public static int VERTICES_PER_OBJECT = 4;
 
         #region Shaders
+
+        public static string TEXTURE_VERT_SHADER = @"#version 330 core
+layout(location = 0) in vec3 position;
+layout(location = 1) in vec3 coordinate;
+
+out vec3 coord;
+
+uniform mat4 pr_matrix;
+uniform mat4 vw_matrix = mat4(1.0);
+uniform mat4 ml_matrix = mat4(1.0);
+
+void main()
+{
+	gl_Position = vec4(position,1.0) * ml_matrix * vw_matrix * pr_matrix;
+	coord = coordinate;
+}";
+
+        public static string TEXTURE_FRAG_SHADER = @"#version 330 core
+
+out vec4 color;
+in vec3 coord;
+
+uniform sampler2D tex;
+
+void main()
+{
+	color = texture(tex, vec2(coord.x,coord.y));
+	if(color.w == 0) discard;
+}";
+
         public static string BASIC_VERT_SHADER = @"#version 330 core
 layout(location = 0) in vec3 coordinate;
 layout(location = 1) in vec3 color;

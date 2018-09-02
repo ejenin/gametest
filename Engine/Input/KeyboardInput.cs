@@ -14,28 +14,6 @@ namespace Engine.Input
             PreviousKeyStates = new Dictionary<Key, bool>();
         }
 
-        public void PressKey(Key key)
-        {
-            SafeSetState(key, true);
-        }
-
-        public void ReleaseKey(Key key)
-        {
-            SafeSetState(key, false);
-        }
-
-        private void SafeSetState(Key key, bool state)
-        {
-            if (KeyStates.ContainsKey(key))
-            {
-                KeyStates[key] = state;
-            }
-            else
-            {
-                KeyStates.Add(key, state);
-            }
-        }
-
         public bool IsKeyDown(Key key)
         {
             bool down = KeyStates.TryGetValue(key, out var result);
@@ -58,7 +36,29 @@ namespace Engine.Input
             return !result && prevResult || (!result && !prevResult);
         }
 
-        public void Update()
+        private void SafeSetState(Key key, bool state)
+        {
+            if (KeyStates.ContainsKey(key))
+            {
+                KeyStates[key] = state;
+            }
+            else
+            {
+                KeyStates.Add(key, state);
+            }
+        }
+
+        internal void PressKey(Key key)
+        {
+            SafeSetState(key, true);
+        }
+
+        internal void ReleaseKey(Key key)
+        {
+            SafeSetState(key, false);
+        }
+
+        internal void Update()
         {
             PreviousKeyStates.Clear();
             
