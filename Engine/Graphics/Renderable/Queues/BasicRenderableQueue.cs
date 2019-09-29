@@ -10,23 +10,23 @@ namespace Engine.Graphics.Renderable.Queues
     {
         private VertexArray _vertexArray;
         private Shader _shader;
+        private ICollection<IBasicRenderable> _renderablesToDraw;
+        private List<Vector3> _meshData;
+        private List<Vector3> _colorData;
 
         public BasicRenderableQueue()
         {
             _shader = ShadersLibrary.BASIC;
             _vertexArray = new VertexArray();
 
-            RenderablesToDraw = new List<IBasicRenderable>();
+            _meshData = new List<Vector3>();
+            _colorData = new List<Vector3>();
+            _renderablesToDraw = new List<IBasicRenderable>();
         }
-
-        private ICollection<IBasicRenderable> RenderablesToDraw { get; set; }
-
-        private List<Vector3> MeshData = new List<Vector3>();
-        private List<Vector3> ColorData = new List<Vector3>();
 
         private void AppendData(IBasicRenderable renderable)
         {
-            RenderablesToDraw.Add(renderable);
+            _renderablesToDraw.Add(renderable);
         }
 
         public void AppendData(IRenderable renderable)
@@ -36,17 +36,15 @@ namespace Engine.Graphics.Renderable.Queues
 
         public bool CanRender(IRenderable renderable)
         {
-            if (renderable is IBasicRenderable)
-                return true;
-            return false;
+            return renderable is IBasicRenderable;
         }
 
         public void Clear()
         {
             _vertexArray.ClearData();
-            RenderablesToDraw.Clear();
-            MeshData.Clear();
-            ColorData.Clear();
+            _renderablesToDraw.Clear();
+            _meshData.Clear();
+            _colorData.Clear();
         }
 
         public void Draw()
@@ -54,7 +52,7 @@ namespace Engine.Graphics.Renderable.Queues
             _shader.Enable();
 
             _vertexArray.Bind();
-            GL.DrawArrays(PrimitiveType.Quads, 0, Constants.VERTICES_PER_OBJECT * RenderablesToDraw.Count);
+            GL.DrawArrays(PrimitiveType.Quads, 0, Constants.VERTICES_PER_OBJECT * _renderablesToDraw.Count);
             _vertexArray.Unbind();
 
             _shader.Disable();
@@ -64,14 +62,14 @@ namespace Engine.Graphics.Renderable.Queues
         {
             _vertexArray.InitData();
             
-            foreach (var item in RenderablesToDraw)
+            foreach (var item in _renderablesToDraw)
             {
-                MeshData.AddRange(item.MeshData);
-                ColorData.AddRange(item.ColorData);
+                _meshData.AddRange(item.MeshData);
+                _colorData.AddRange(item.ColorData);
             }
 
-            _vertexArray.AppendBuffer(MeshData.ToArray(), 0);
-            _vertexArray.AppendBuffer(ColorData.ToArray(), 1);
+            _vertexArray.AppendBuffer(_meshData.ToArray(), 0);
+            _vertexArray.AppendBuffer(_colorData.ToArray(), 1);
         }
     }
 }

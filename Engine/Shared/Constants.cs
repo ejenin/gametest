@@ -7,7 +7,7 @@
         public static string WINDOW_TITLE = "Engine Test";
         public static double FRAMES_PER_SECOND = 60.0d;
         public static double UPDATES_PER_SECOND = 60.0d;
-        public static bool CALC_FPS = false;
+        public static bool CALC_FPS = true;
 
         /// <summary>
         /// СЧЁТ ВЕРШИН НАЧИНАЕТСЯ С ВЕРХНЕЙ ЛЕВОЙ ПО ЧАСОВОЙ СТРЕЛКЕ
